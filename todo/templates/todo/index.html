@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex; /* 使用 flex 布局 */
+            justify-content: center; /* 水平置中 */
+            align-items: center; /* 垂直置中 */
+            min-height: 100vh; /* 確保頁面高度至少為視窗高度 */
+            margin: 0; /* 去掉預設的邊距 */
+        }
+        .container {
+            max-width: 600px;
+            width: 100%; /* 使用 100% 的寬度 */
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        a {
+            display: block;
+            margin: 10px 0;
+            font-size: 18px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Index Page</h1>
+        <a href="{% url 'todo_list' %}">Go to Django homework </a>
+        <a href="{% url 'register' %}">Go to Ajax homework </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block card_content %}
+<!-- 註冊內容 -->
+<div class="container d-flex justify-content-center mt-4" style="width: 70%;">
+    <div class="card">
+        <h5 class="card-header">會員註冊</h5>
+        <div class="card-body">
+            <form id="registerF">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="InputName" class="form-label">姓名</label>
+                    <input type="text" class="form-control" id="InputName" name="name">
+                    <div id="namecheck" class="alert alert-info mt-3"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="InputEmail" class="form-label">電子郵件</label>
+                    <input type="email" class="form-control" id="InputEmail" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="Inputpassword" class="form-label">密碼</label>
+                    <input type="password" class="form-control" name="password" id="Inputpassword"/>
+                </div>
+                <div class="mb-3">
+                    <label for="Inputpassword2" class="form-label">密碼確認</label>
+                    <input type="password" class="form-control" name="password2" id="Inputpassword2"/>
+                </div>
+                <div class="mb-3">
+                    <label for="InputAge" class="form-label">年齡</label>
+                    <input type="number" class="form-control" id="InputAge" name="age">
+                </div>
+                <!-- Removed file input -->
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">頭像</label>
+                    <input class="form-control" type="file" id="formFile" name="avator">
+                </div>
+                <button type="submit" class="btn btn-primary" id="buttonSubmit">送出</button>
+            </form>
+            <div id="div1" class="alert alert-info mt-3"></div>
+        </div>
+    </div>
+</div>
+<!-- 頁尾 -->
+<div class="footer">
+    <a href="{% url 'index' %}">回首頁</a> | OJTP01 By 鍾政潔
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+const btnSubmit = document.querySelector('#buttonSubmit');
+const inputName = document.querySelector('#InputName');
+const inputEmail = document.querySelector('#InputEmail');
+const inputAge = document.querySelector('#InputAge');
+const divInfo = document.querySelector('#div1');
+const inputPassword = document.querySelector("#Inputpassword");
+const inputPassword2 = document.querySelector("#Inputpassword2");
+const divName = document.querySelector("#namecheck");
+
+inputName.addEventListener("blur", async () => {
+    if (inputName.value) {
+    const response = await fetch(`/todo/check_name/?name=${inputName.value}`);
+            if (!response.ok) {
+                divName.innerHTML = "錯誤";
+            } else {
+                const data = await response.text();
+                divName.innerHTML = data ;
+            }
+        } else {
+            divName.innerHTML = "請輸入名字";
+        }
+
+    
+
+});
+
+
+
+btnSubmit.addEventListener('click', async(event) => {
+    event.preventDefault();
+    const myForm = document.querySelector('#registerF')
+        const formData = new FormData(myForm)
+        const response = await fetch('/register_check/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        });
+
+        const data = await response.text(); 
+        console.log(data)
+
+        if (data.includes('註冊完成')) {
+            divInfo.innerHTML = data;  
+            myForm.reset(); 
+        } else {
+            divInfo.innerHTML = data;
+        }
+
+});
+
+
+</script>
+{% endblock %}
