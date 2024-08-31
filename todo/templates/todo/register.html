@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% block content %}
+ 
+{% endblock %}
 
 {% block card_content %}
 <!-- 註冊內容 -->
 <div class="container d-flex justify-content-center mt-4" style="width: 70%;">
     <div class="card">
-        <h5 class="card-header">會員註冊</h5>
+        <h5 class="card-header">註冊頁面</h5>
         <div class="card-body">
             <form id="registerF">
                 {% csrf_token %}
@@ -43,7 +46,7 @@
     </div>
 </div>
 <!-- 頁尾 -->
-<div class="footer">
+<div class="footer" style="text-align: center">
     <a href="{% url 'index' %}">回首頁</a> | OJTP01 By 鍾政潔
 </div>
 {% endblock %}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}旅遊景點{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    {% block extra_css %}
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 200px; /* 固定圖片高度，確保大小一致 */
+            object-fit: cover; /* 保持圖片比例，不拉伸 */
+        }
+        .card-body {
+            min-height: 150px; /* 確保卡片內容部分的最小高度一致 */
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <!-- 導覽列 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">OJPT01-鍾政潔</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">註冊</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'todo_list' %}">Todo 清單</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}
+    <div class="container mt-4">
+        <div id="travel_cards" class="row">
+            <!-- 卡片內容將由 JavaScript 動態插入 -->
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'travel.js' %}"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const cardContainer = document.querySelector("#travel_cards");
+    
+        const traveldata = spots.CommonFormat.Section.map((sectionItem) => {
+            const { stitle, xbody, address, file } = sectionItem;
+    
+            // 檢查圖片是否存在，若無則使用佔位符圖片
+            let url;
+            if (file.img && file.img.length > 0) {
+                url = file.img[0].text;
+            } else {
+                url = "https://via.placeholder.com/200x150.png?text=No+Image";  // 使用佔位符圖片
+            }
+    
+            // 簡化介紹文字
+            let sliceXbody;
+            if (xbody.length > 50) {
+                sliceXbody = xbody.slice(0, 50) + "...";
+            } else {
+                sliceXbody = xbody;
+            }
+    
+            // 回傳卡片HTML
+            return `    
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="${url}" class="card-img-top" alt="景點圖片" />
+                        <div class="card-body">
+                            <h5 class="card-title">${stitle}</h5>
+                            <p class="card-text">${sliceXbody}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">${address}</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    
+        // 將卡片資料插入到網頁中
+        cardContainer.innerHTML = traveldata.join("");
+    });
+    </script>
+    {% endblock %}
+</body>
+</html>

@@ -116,3 +116,8 @@ def check_name(request):
         content = "此名字可使用!"
 
     return HttpResponse(content, content_type='text/plain; charset=utf-8')
+
+
+
+def travel(request):
+    return render(request, 'todo/travel.html', {'title': 'Travel Data'})

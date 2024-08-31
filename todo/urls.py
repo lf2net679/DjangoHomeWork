@@ -12,6 +12,6 @@ urlpatterns = [
     path('delete/<int:id>/', views.delete_todo, name='delete_todo'),
     path('register/', views.register, name='register'),
     path('register_check/', views.register_check, name='register_check'),
-    path('todo/check_name/', views.check_name, name='check_name')
-
+    path('todo/check_name/', views.check_name, name='check_name'),
+    path('travel/', views.travel, name='travel')
 ]
