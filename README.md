@@ -60,7 +60,7 @@
 - `manage.py`: Django 的命令行工具。
 - `requirements.txt`: 專案所需的 Python 庫。
 
-## 新增頁面
+## 首頁簡介
 
 - [Go to TODO清單 homework](http://127.0.0.1:8000/todo/) - 訪問待辦事項清單頁面。
 - [Go to 註冊頁面 homework](http://127.0.0.1:8000/register/) - 訪問用戶註冊頁面。
