@@ -50,7 +50,10 @@
 - `static/`: 存放靜態文件（CSS、JS、圖片等）。
 - `templates/`: 存放 HTML 模板。
   - `todo/`: 存放待辦事項應用的模板。
-  - `index.html`: 顯示待辦事項列表的頁面。
+  - `index.html`: 顯示首頁的頁面。
+  - `register.html`: 顯示註冊項列表的頁面。
+  - `travel.html`: 顯示旅遊景點展示的頁面。
+  - `todo.html`: 顯示待辦清單的頁面。
 - `models.py`: 定義數據模型。
 - `views.py`: 定義視圖函數。
 - `urls.py`: 定義 URL 路由。
