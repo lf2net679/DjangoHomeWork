@@ -1,4 +1,4 @@
-# Django HomeWork - TODO
+# Django HomeWork - TODO、AJAX、JSON
 
 這是一個 Django 作業專案，主要功能是建立一個待辦事項應用。使用者可以新增、編輯和刪除待辦事項，並且可以標記待辦事項為已完成或未完成。除了待辦事項功能，還包括了用戶註冊頁面和景點展示頁面。
 
